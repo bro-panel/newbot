@@ -12,7 +12,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        const repoUrl = 'https://github.com/itsme-didularashmika/Didula-MD-V2.git'; // لینک مخزن گیت‌هاب
+        const repoUrl = 'https://github.com/bro-panel/newbot.git'; // لینک مخزن گیت‌هاب
         const targetFolder = 'plugins'; // پوشه‌ای که باید به‌روز شود
 
         // بررسی وجود پوشه هدف
@@ -37,7 +37,7 @@ cmd({
         });
 
         // ارسال پیام موفقیت
-        await conn.sendMessage(from, { text: '*✅Didula MD V2 💚 Update completed successfully!*' }, { quoted: mek });
+        await conn.sendMessage(from, { text: '*💚 Update completed successfully!*' }, { quoted: mek });
     } catch (error) {
         console.error(error);
         reply(`*Error during update:* ${error.message}`);
