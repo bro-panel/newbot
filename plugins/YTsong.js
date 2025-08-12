@@ -44,17 +44,20 @@ cmd(
       }
 
       // 4) Send metadata + thumbnail
-      const desc = `
-🍄 *𝐒ʜᴀɢᴇᴇ 𝐌ᴅ 𝐒ᴏɴɢ 𝐕ɪꜱɪᴛ* 🍄\n\n` +
-            `🎵 *𝐓ɪᴛᴇʟ:* ${title || "Unknown"}\n` +
-            `⏳ *𝐓ɪᴍᴇꜱᴛᴀᴍᴘ:* ${timestamp || "Unknown"}\n` +
-            `👀 *𝐕ɪᴡᴇꜱ:* ${views || "Unknown"}\n` +
-            `🌏 *𝐀ɢᴏ:* ${ago || "Unknown"}\n` +
-            `👤 *𝐎ᴡɴᴇʀ:* ${author?.name || "Unknown"}\n` +
-            `🖇 *𝐔ʀʟ:* ${url || "Unknown"}\n\n
+      
 
+const { title, timestamp, views, ago, author } = info;
+
+const desc = `
+🍄 *𝐒ʜᴀɢᴇᴇ 𝐌ᴅ 𝐒ᴏɴɢ 𝐕ɪꜱɪᴛ* 🍄\n\n` +
+`🎵 *𝐓ɪᴛᴇʟ:* ${title || "Unknown"}\n` +
+`⏳ *𝐓ɪᴍᴇꜱᴛᴀᴍᴘ:* ${timestamp || "Unknown"}\n` +
+`👀 *𝐕ɪᴡᴇꜱ:* ${views || "Unknown"}\n` +
+`🌏 *𝐀ɢᴏ:* ${ago || "Unknown"}\n` +
+`👤 *𝐎ᴡɴᴇʀ:* ${author?.name || "Unknown"}\n` +
+`🖇 *𝐔ʀʟ:* ${url || "Unknown"}\n\n
 ━━━━━━━━━━━━━━━━━━
-      `.trim();
+`.trim();
 
       await malvin.sendMessage(
         from,
