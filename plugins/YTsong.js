@@ -88,23 +88,22 @@ const desc = `
         }
       };
 
-      // 6) Download + send
-      const { buffer, title } = await downloadAudio(url);
-      await malvin.sendMessage(
-        from,
-        {
-          audio: buffer,
-          mimetype: "audio/mpeg",
-          ptt: false,
-          fileName: `${title}.mp3`,
-        },
-        { quoted: mek }
-      );
+      try {
+  // 6) Download + send
+  const { buffer, title: audioTitle } = await downloadAudio(url);
+  await malvin.sendMessage(
+    from,
+    {
+      audio: buffer,
+      mimetype: "audio/mpeg",
+      ptt: false,
+      fileName: `${audioTitle}.mp3`,
+    },
+    { quoted: mek }
+  );
 
-      reply("*_𝐘ᴏᴜʀ 𝐀ᴜᴅɪᴏ 𝐃ᴏᴡɴʟᴏᴅ 𝐁ʏ 𝐒ʜᴀɢᴇᴇ_🌑⚡*");
-    } catch (e) {
-      console.error("Error:", e);
-      reply(`❌ Error: ${e.message}`);
-    }
-  }
-);
+  reply("*_𝐘ᴏᴜʀ 𝐀ᴜᴅɪᴏ 𝐃ᴏᴡɴʟᴏᴅ 𝐁ʏ 𝐒ʜᴀɢᴇᴇ_🌑⚡*");
+} catch (e) {
+  console.error("Error:", e);
+  reply(`❌ Error: ${e.message}`);
+}
