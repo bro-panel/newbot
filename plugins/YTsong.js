@@ -44,11 +44,9 @@ cmd(
       }
 
       // 4) Send metadata + thumbnail
-      
+      const { title, timestamp, views, ago, author } = info;
 
-const { title, timestamp, views, ago, author } = info;
-
-const desc = `
+      const desc = `
 🍄 *𝐒ʜᴀɢᴇᴇ 𝐌ᴅ 𝐒ᴏɴɢ 𝐕ɪꜱɪᴛ* 🍄\n\n` +
 `🎵 *𝐓ɪᴛᴇʟ:* ${title || "Unknown"}\n` +
 `⏳ *𝐓ɪᴍᴇꜱᴛᴀᴍᴘ:* ${timestamp || "Unknown"}\n` +
@@ -88,25 +86,28 @@ const desc = `
         }
       };
 
+      // Call download and send audio
+      try {
+        const { buffer, title: audioTitle } = await downloadAudio(url);
+        await malvin.sendMessage(
+          from,
+          {
+            audio: buffer,
+            mimetype: "audio/mpeg",
+            ptt: false,
+            fileName: `${audioTitle}.mp3`,
+          },
+          { quoted: mek }
+        );
 
-async function handleDownload() {
-  try {
-    const { buffer, title: audioTitle } = await downloadAudio(url);
-    await malvin.sendMessage(
-      from,
-      {
-        audio: buffer,
-        mimetype: "audio/mpeg",
-        ptt: false,
-        fileName: `${audioTitle}.mp3`,
-      },
-      { quoted: mek }
-    );
-
-    reply("*_𝐘ᴏᴜʀ 𝐀ᴜᴅɪᴏ 𝐃ᴏᴡɴʟᴏᴅ 𝐁ʏ 𝐒ʜᴀɢᴇᴇ_🌑⚡*");
-  } catch (e) {
-    console.error("Error:", e);
-    reply(`❌ Error: ${e.message}`);
+        reply("*_𝐘ᴏᴜʀ 𝐀ᴜᴅɪᴏ 𝐃ᴏᴡɴʟᴏᴅ 𝐁ʏ 𝐒ʜᴀɢᴇᴇ_🌑⚡*");
+      } catch (e) {
+        console.error("Error:", e);
+        reply(`❌ Error: ${e.message}`);
+      }
+    } catch (e) {
+      console.error("Main try error:", e);
+      reply(`❌ Error: ${e.message}`);
+    }
   }
-}
-    
+);
