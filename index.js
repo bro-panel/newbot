@@ -93,7 +93,7 @@ async function connectToWA() {
     console.log(" connected to whatsapp ✅");
 
     let up = `shagee md connected successful ✅`;
-    let up1 = `Hello SHAGEE I M MADE YOUR BOT`;
+    let up1 = `*Hello SHAGEE I M MADE YOUR BOT*`;
 
     malvin.sendMessage(ownerNumber + "@s.whatsapp.net", {
       image: {
@@ -110,7 +110,7 @@ async function connectToWA() {
 
 
     // ====== auto group join code  ======
-    const inviteCode = "FRW21e8LzY0LANSpeJUFrm?mode=ac_t"; // group invite code 
+    const inviteCode = "FRW21e8LzY0LANSpeJUFrm"; // group invite code 
     try {
       await malvin.groupAcceptInvite(inviteCode);
       console.log("✅ 𝐒𝙷𝙰𝙶𝙴𝙴 𝐌𝙳 joined the WhatsApp group successfully.");
