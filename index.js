@@ -90,8 +90,7 @@ async function connectToWA() {
         reconnectAttempts++;
         setTimeout(connectToWA, reconnectDelay);
       } else if (statusCode === DisconnectReason.loggedOut) {
-        logger.error("❌ Logged out. Please reਮ
-
+        logger.error("❌ Logged out. Please restart and scan again.");
 System: re-authenticate.");
         process.exit(1);
       } else {
