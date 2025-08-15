@@ -63,13 +63,16 @@ if (!fs.existsSync(__dirname + "/session/creds.json")) {
   }
 }
 
-async function connectToWA() {
-  logger.info("Connecting SHAGEE MD...");
-  const { state, saveCreds } = await useMultiFileAuthState(__dirname + "/session/");
-  const { version } = await fetchLatestBaileysVersion();
+  //===========================
+
+  console.log("Connecting MALU XD");
+  const { state, saveCreds } = await useMultiFileAuthState(
+    __dirname + "/session/"
+  );
+  var { version } = await fetchLatestBaileysVersion();
 
   const malvin = makeWASocket({
-    logger: require("pino")({ level: "silent" }),
+    logger: P({ level: "silent" }),
     printQRInTerminal: false,
     browser: Browsers.macOS("Firefox"),
     syncFullHistory: true,
@@ -77,41 +80,25 @@ async function connectToWA() {
     version,
   });
 
-  let reconnectAttempts = 0;
-  const maxReconnectAttempts = 5;
-  const reconnectDelay = 5000;
-
   malvin.ev.on("connection.update", async (update) => {
-    const { connection, lastDisconnect } = update;
-    if (connection === "close") {
-      const statusCode = lastDisconnect?.error?.output?.statusCode;
-      if (statusCode !== DisconnectReason.loggedOut && reconnectAttempts < maxReconnectAttempts) {
-        logger.warn(`⚠️ Connection closed, reconnecting... (Attempt ${reconnectAttempts + 1}/${maxReconnectAttempts})`);
-        reconnectAttempts++;
-        setTimeout(connectToWA, reconnectDelay);
-      } else if (statusCode === DisconnectReason.loggedOut) {
-        logger.error("❌ Logged out. Please restart and scan again.");
-System: re-authenticate.");
-        process.exit(1);
-      } else {
-        logger.error("❌ Max reconnection attempts reached. Exiting.");
-        process.exit(1);
+  const { connection, lastDisconnect } = update;
+  if (connection === "close") {
+    if (
+      lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut
+    ) {
+      connectToWA();
+    }
+  } else if (connection === "open") {
+    console.log(" Installing... ");
+    const path = require("path");
+    fs.readdirSync("./plugins/").forEach((plugin) => {
+      if (path.extname(plugin).toLowerCase() == ".js") {
+        require("./plugins/" + plugin);
       }
-    } else if (connection === "open") {
-      reconnectAttempts = 0;
-      logger.info("✅ Installing plugins...");
-      const path = require("path");
-      fs.readdirSync("./plugins/").forEach((plugin) => {
-        if (path.extname(plugin).toLowerCase() === ".js") {
-          try {
-            require("./plugins/" + plugin);
-          } catch (err) {
-            logger.error(`❌ Failed to load plugin ${plugin}:`, err.message);
-          }
-        }
-      });
-      logger.info("✅ Plugins installed successfully");
-      logger.info("✅ Connected to WhatsApp");
+    });
+    console.log(" installed successful ✅");
+    console.log(" connected to whatsapp ✅");
+
 
       try {
         await malvin.sendMessage(config.OWNER_NUM + "@s.whatsapp.net", {
