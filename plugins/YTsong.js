@@ -44,18 +44,17 @@ cmd(
       }
 
       // 4) Send metadata + thumbnail
-      const { title, timestamp, views, ago, author } = info;
-
       const desc = `
-🍄 *𝐒ʜᴀɢᴇᴇ 𝐌ᴅ 𝐒ᴏɴɢ 𝐕ɪꜱɪᴛ* 🍄\n\n` +
-`🎵 *𝐓ɪᴛᴇʟ:* ${title || "Unknown"}\n` +
-`⏳ *𝐓ɪᴍᴇꜱᴛᴀᴍᴘ:* ${timestamp || "Unknown"}\n` +
-`👀 *𝐕ɪᴡᴇꜱ:* ${views || "Unknown"}\n` +
-`🌏 *𝐀ɢᴏ:* ${ago || "Unknown"}\n` +
-`👤 *𝐎ᴡɴᴇʀ:* ${author?.name || "Unknown"}\n` +
-`🖇 *𝐔ʀʟ:* ${url || "Unknown"}\n\n
+🧩 *SHAGEE AUDIO DOWNLOADER* 🧩
+
+📌 *Title:* ${info.title || "Unknown"}
+⏱️ *Uploaded:* ${info.timestamp || "N/A"} (${info.ago || "N/A"})
+👀 *Views:* ${info.views?.toLocaleString() || "N/A"}
+🔗 *Download URL:* ${info.url || url}
+
 ━━━━━━━━━━━━━━━━━━
-`.trim();
+*SHAGEE MD🪀*
+      `.trim();
 
       await malvin.sendMessage(
         from,
@@ -86,27 +85,22 @@ cmd(
         }
       };
 
-      // Call download and send audio
-      try {
-        const { buffer, title: audioTitle } = await downloadAudio(url);
-        await malvin.sendMessage(
-          from,
-          {
-            audio: buffer,
-            mimetype: "audio/mpeg",
-            ptt: false,
-            fileName: `${audioTitle}.mp3`,
-          },
-          { quoted: mek }
-        );
+      // 6) Download + send
+      const { buffer, title } = await downloadAudio(url);
+      await malvin.sendMessage(
+        from,
+        {
+          audio: buffer,
+          mimetype: "audio/mpeg",
+          ptt: false,
+          fileName: `${title}.mp3`,
+        },
+        { quoted: mek }
+      );
 
-        reply("*_𝐘ᴏᴜʀ 𝐀ᴜᴅɪᴏ 𝐃ᴏᴡɴʟᴏᴅ 𝐁ʏ 𝐒ʜᴀɢᴇᴇ_🌑⚡*");
-      } catch (e) {
-        console.error("Error:", e);
-        reply(`❌ Error: ${e.message}`);
-      }
+      reply("*Thanks for using my SHAGEE MD BOT* 🎵");
     } catch (e) {
-      console.error("Main try error:", e);
+      console.error("Error:", e);
       reply(`❌ Error: ${e.message}`);
     }
   }
