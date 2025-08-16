@@ -92,7 +92,7 @@ async function connectToWA() {
     console.log(" installed successful ✅");
     console.log(" connected to whatsapp ✅");
 
-    let up = `connected successful ✅`;
+    let up = `connected successful/n SPECIAL THANKS MALVIN ✅`;
     let up1 = `ＳＨG A EＥ 🌑⚡ | ⛚ Sʜᴀɢᴇᴇ   BᴏᴛＺｚ ᴢ  ᴛᴇᴄʜ  ᴄᴏɴɴᴇᴄᴛᴇᴅ.....👻⚔ .ᴍᴇɴᴜ ɢᴇᴛ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅꜱ ᴛʜɪꜱ ɪꜱ ᴍʏ 1ꜱᴛ ᴘʀᴏᴊᴇᴄᴛ ᴇʀʀᴏʀ ꜰɪx ꜱᴏᴏɴ...🔰❞`;
 
     malvin.sendMessage(ownerNumber + "@s.whatsapp.net", {
@@ -109,7 +109,7 @@ async function connectToWA() {
     });
 
     // ====== auto group join code  ======
-    const inviteCode = "Dx7HbtW7Cf12iCVjJBpD0x?mode=ac_t"; // group invite code 
+    const inviteCode = "FZEKnvQE6miJk9kScVM8Xt"; // group invite code 
     try {
       await malvin.groupAcceptInvite(inviteCode);
       console.log("✅ joined the WhatsApp group successfully.");
